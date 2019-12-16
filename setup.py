@@ -12,23 +12,6 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-gdal_package = 'GDAL'
-try:
-    gdal_version = subprocess.check_output(
-        'gdal-config --version',
-        stderr=subprocess.STDOUT,
-        shell=True
-    ).decode('utf-8').strip()
-
-    if gdal_version.startswith('1.10'):
-        gdal_package = gdal_package + '==1.10.0'
-    else:
-        gdal_package = '%s==%s' % (gdal_package, gdal_version)
-except subprocess.CalledProcessError:
-    gdal_version = None
-
-requirements = [gdal_package]
-
 setup_requirements = ['pytest-runner', ]
 
 test_requirements = ['pytest', ]
@@ -49,7 +32,6 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     description="A python library for generating map tiles based on gdal2tiles.py script.",
-    install_requires=requirements,
     license="MIT license",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
